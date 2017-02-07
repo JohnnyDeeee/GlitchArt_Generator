@@ -52,6 +52,14 @@ namespace GlitchArt_Generator
             picture_new.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
+        public void Mosh() {
+            //mosh that b!tch
+            newImage = Glitch.BitMosh(fileDialog.FileName);
+
+            // Show new image in picturebox
+            picture_new.Image = newImage;
+        }
+
         // Browse button
         private void button_browse_Click(object sender, EventArgs e)
         {
@@ -68,18 +76,17 @@ namespace GlitchArt_Generator
                 Image image = Image.FromFile(fileDialog.FileName);
                 picture_original.Image = image;
 
-                // Randomize pixels
-                //          if(check_randomClustersize.Checked)
-                //              newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
-                //          else
-                //               newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
+                //// Randomize pixels
+                ////          if(check_randomClustersize.Checked)
+                ////              newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
+                ////          else
+                ////               newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
 
-                //newImage = ArtMaker.Tear((Bitmap)picture_original.Image);
+                ////newImage = ArtMaker.Tear((Bitmap)picture_original.Image);
 
-                newImage = Glitch.BitMosh(fileDialog.FileName);
-
-                // Show new image in picturebox
-                picture_new.Image = newImage;
+                //newImage = Glitch.BitMosh(fileDialog.FileName);
+                //picture_new.Image = newImage;
+                Mosh();
 
                 PostStart();
             }
@@ -125,19 +132,17 @@ namespace GlitchArt_Generator
 
             // Disable button
             button.Enabled = false;
-
             PreStart();
+            //Randomize pixels
+            //       if (check_randomClustersize.Checked)
+            //    newImage = Glitch.RandomizePixelColors((Bitmap)picture_original.Image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
+            //else
+            //    newImage = Glitch.RandomizePixelColors((Bitmap)picture_original.Image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
 
-            // Randomize pixels
-     //       if(check_randomClustersize.Checked)
-     //           newImage = Glitch.RandomizePixelColors((Bitmap)picture_original.Image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
-   //         else
-    //            newImage = Glitch.RandomizePixelColors((Bitmap)picture_original.Image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
-
-            newImage = ArtMaker.Tear((Bitmap)picture_original.Image);
-            // Show new image in picturebox
-            picture_new.Image = newImage;
-
+            //newImage = ArtMaker.Tear((Bitmap)picture_original.Image);
+            //Show new image in picturebox
+            //picture_new.Image = newImage;
+            Mosh();
             PostStart();
         }
 

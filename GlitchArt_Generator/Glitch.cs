@@ -210,24 +210,30 @@ namespace GlitchArt_Generator
             Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
 
             MemoryStream newMemoryStream = new MemoryStream();
-                                
+                                            
             stream.Position = 0;
             stream.CopyTo(newMemoryStream);
             stream.Dispose();
 
-            for (int i = 0; i < newMemoryStream.Length; i++)
+            for (int i = 0; i < main.randomChange; i++)
             {
-                if (rand.Next(1, 2000) == 1)
-                {
-                    newMemoryStream.Position = i;
-                    byte[] randBytes = new byte[1];
-                    rand.NextBytes(randBytes);
-                    newMemoryStream.WriteByte(randBytes[0]);
-                }
+                int pos = rand.Next(20, (int)(newMemoryStream.Length-20));                
+                newMemoryStream.Position = pos;
+                byte[] randBytes = new byte[1];
+                rand.NextBytes(randBytes);
+                newMemoryStream.WriteByte(randBytes[0]);                
             }
 
             newMemoryStream.Position = 0;
-            moshedImg = new Bitmap(newMemoryStream);
+            try
+            {
+                moshedImg = new Bitmap(newMemoryStream);
+            }
+            catch {
+                Console.WriteLine("Failed converting moshed stream into Bitmap");
+                return null;
+            }
+
                 
             return moshedImg;
         }
