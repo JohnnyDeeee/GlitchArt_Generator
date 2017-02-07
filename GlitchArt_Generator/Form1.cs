@@ -16,7 +16,9 @@ namespace GlitchArt_Generator
         private OpenFileDialog fileDialog = new OpenFileDialog();
         private SaveFileDialog saveFileDialog = new SaveFileDialog();
         private Bitmap newImage;
-        public ProgressBar progress;
+        public ProgressBar progress {
+            get { return this.progressBar; }
+        }
         public int clusterSize {
             get { return (int)numeric_clusterSize.Value; }
         }
@@ -29,7 +31,6 @@ namespace GlitchArt_Generator
 
             // Initialize Glitch class
             Glitch.main = this;
-            this.progress = progressBar;
 
             // Initialize fileDialog
             //fileDialog.Filter = "Image|*.bmp"; // Only allow bmp files
