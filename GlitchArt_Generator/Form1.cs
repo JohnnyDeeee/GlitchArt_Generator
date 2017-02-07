@@ -33,11 +33,13 @@ namespace GlitchArt_Generator
             Glitch.main = this;
 
             // Initialize fileDialog
+            // TODO: Change filters in something right
             //fileDialog.Filter = "Image|*.bmp"; // Only allow bmp files
             fileDialog.Multiselect = false;
             fileDialog.Title = "Select an image file";
 
             // Initialize saveFileDialog
+            // TODO: Change filters in something right
             saveFileDialog.Filter = "Image|*.bmp";
             saveFileDialog.Title = "Choose a save location for the image";
 
