@@ -9,7 +9,7 @@ namespace GlitchArt_Generator
 {
     // This class contains different glitch functions
     static class Glitch
-    {
+    {        
         public static Form1 main;
 
         // Randomize pixel colors
@@ -75,6 +75,56 @@ namespace GlitchArt_Generator
             }
 
             return finalImage;
+        }        
+
+        //applys noise to al pixels of the provided bitmap
+        public static Bitmap ApplyNoise(Bitmap inputBMP)
+        {
+            int currentStep = 0;
+            int nextStep = (inputBMP.Width * inputBMP.Height) / 100;
+            float clusterSize;
+            //if clustersize == 0 it will fck shit up
+            if (main.clusterSize > 0)
+                clusterSize = (float)main.clusterSize;
+            else
+                clusterSize = 10;
+            Bitmap newBMP = new Bitmap(inputBMP.Width, inputBMP.Height);
+            
+            for (int x = 0; x < inputBMP.Width; x++)
+            {
+                for (int y = 0; y < inputBMP.Height; y++)
+                {
+                    int x10 = (int)Math.Floor(x / clusterSize);
+                    int y10 = (int)Math.Floor(y / clusterSize);
+                    //exlude some spots of the img from noise and stetch it horizontal
+                    if ((SimplexNoise.Generate(x10 * 0.01f, y10 * 0.0001f) + SimplexNoise.Generate(y10 * 0.1f, y10 * 0.1f)) > 1f)
+                    {
+                        float R = inputBMP.GetPixel(x, y).R;
+                        float G = inputBMP.GetPixel(x, y).G;
+                        float B = inputBMP.GetPixel(x, y).B;
+                        //int red = (int)GetNoise(x10, y10, colorValue, 30f, 255f);
+                        //int green = (int)GetNoise(x10, y10, colorValue, 33f, 255f);
+                        //int blue = (int)GetNoise(x10, y10, colorValue, 27f, 255f);
+
+                        int red = (int)SimplexNoise.GetNoise(x10, y10, R, 30f, 255f);
+                        int green = (int)SimplexNoise.GetNoise(x10, y10, G, 30f, 255f);
+                        int blue = (int)SimplexNoise.GetNoise(x10, y10, B, 30f, 255f);
+                        newBMP.SetPixel(x, y, Color.FromArgb(red, green, blue));
+                    }
+                    else
+                    {
+                        newBMP.SetPixel(x, y, inputBMP.GetPixel(x, y));
+                    }
+
+                    currentStep++;
+
+                    // Increment progressbar on every nextStep
+                    if (currentStep % nextStep == 0)
+                        main.progress.Increment(1);
+                }
+            }
+
+            return newBMP;
         }
     }
 }

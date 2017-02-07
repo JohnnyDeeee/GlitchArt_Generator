@@ -17,6 +17,9 @@ namespace GlitchArt_Generator
         private SaveFileDialog saveFileDialog = new SaveFileDialog();
         private Bitmap newImage;
         public ProgressBar progress;
+        public int clusterSize {
+            get { return (int)numeric_clusterSize.Value; }
+        }
 
         // TODO: Create a stop button
 
@@ -27,6 +30,9 @@ namespace GlitchArt_Generator
             // Initialize Glitch class
             Glitch.main = this;
             this.progress = progressBar;
+
+            //ShowMethods();
+            //methodSelector.Items.AddRange(Glitch.ShowMethods());
 
             // Initialize fileDialog
             fileDialog.Filter = "Image|*.bmp"; // Only allow bmp files
@@ -40,6 +46,8 @@ namespace GlitchArt_Generator
             // Initialize pictureboxes
             picture_original.SizeMode = PictureBoxSizeMode.StretchImage;
             picture_new.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            picture_new.Image = Glitch.ApplyNoise((Bitmap)Image.FromFile("C:/Users/Tijmen/Pictures/pasfoto.bmp"));
         }
 
         // Browse button
@@ -154,6 +162,11 @@ namespace GlitchArt_Generator
 
             // Enable browse button
             button_browse.Enabled = true;
+        }
+
+        private void SelectMethod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

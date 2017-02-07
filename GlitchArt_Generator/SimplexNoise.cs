@@ -35,12 +35,19 @@ namespace GlitchArt_Generator
     //For more information, please refer to <http://unlicense.org/>
     class SimplexNoise
     {
-            /// <summary>
-            /// 1D simplex noise
-            /// </summary>
-            /// <param name="x"></param>
-            /// <returns></returns>
-            public static float Generate(float x)
+        //scales the noise to a usable format
+        public static float GetNoise(int x, int y, float z, float scale, float power)
+        {
+            scale = 1 / scale;
+            float noise = Generate(x * scale, y * scale, z * scale) * power;
+            return noise;
+        }
+        /// <summary>
+        /// 1D simplex noise
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float Generate(float x)
             {
                 int i0 = FastFloor(x);
                 int i1 = i0 + 1;
@@ -57,8 +64,8 @@ namespace GlitchArt_Generator
                 t1 *= t1;
                 n1 = t1 * t1 * grad(perm[i1 & 0xff], x1);
                 // The maximum value of this noise is 8*(3/4)^4 = 2.53125
-                // A factor of 0.395 scales to fit exactly within [-1,1]
-                return 0.395f * (n0 + n1);
+                // A factor of 0.395 scales to fit exactly within [0,1]
+                return ((0.395f * (n0 + n1)) + 1f)/ 2f;
             }
 
             /// <summary>
@@ -137,8 +144,8 @@ namespace GlitchArt_Generator
                 }
 
                 // Add contributions from each corner to get the final noise value.
-                // The result is scaled to return values in the interval [-1,1].
-                return 40.0f * (n0 + n1 + n2); // TODO: The scale factor is preliminary!
+                // The result is scaled to return values in the interval [0,1].
+                return ((40.0f * (n0 + n1 + n2)) + 1f)/ 2f; // TODO: The scale factor is preliminary!
             }
 
 
@@ -250,8 +257,8 @@ namespace GlitchArt_Generator
                 }
 
                 // Add contributions from each corner to get the final noise value.
-                // The result is scaled to stay just inside [-1,1]
-                return 32.0f * (n0 + n1 + n2 + n3); // TODO: The scale factor is preliminary!
+                // The result is scaled to stay just inside [0,1]
+                return ((32.0f * (n0 + n1 + n2 + n3))+1f)/2f; // TODO: The scale factor is preliminary!
             }
 
             public static byte[] perm = new byte[512] { 151,160,137,91,90,15,
