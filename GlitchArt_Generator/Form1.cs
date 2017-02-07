@@ -59,10 +59,12 @@ namespace GlitchArt_Generator
                 picture_original.Image = image;
 
                 // Randomize pixels
-                if(check_randomClustersize.Checked)
-                    newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
-                else
-                    newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
+      //          if(check_randomClustersize.Checked)
+      //              newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
+      //          else
+     //               newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
+
+                newImage = ArtMaker.Tear((Bitmap)picture_original.Image);
 
                 // Show new image in picturebox
                 picture_new.Image = newImage;
@@ -115,11 +117,12 @@ namespace GlitchArt_Generator
             PreStart();
 
             // Randomize pixels
-            if(check_randomClustersize.Checked)
-                newImage = Glitch.RandomizePixelColors((Bitmap)picture_original.Image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
-            else
-                newImage = Glitch.RandomizePixelColors((Bitmap)picture_original.Image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
+     //       if(check_randomClustersize.Checked)
+     //           newImage = Glitch.RandomizePixelColors((Bitmap)picture_original.Image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
+   //         else
+    //            newImage = Glitch.RandomizePixelColors((Bitmap)picture_original.Image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
 
+            newImage = ArtMaker.Tear((Bitmap)picture_original.Image);
             // Show new image in picturebox
             picture_new.Image = newImage;
 
