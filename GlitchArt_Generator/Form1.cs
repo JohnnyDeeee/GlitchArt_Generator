@@ -16,7 +16,12 @@ namespace GlitchArt_Generator
         private OpenFileDialog fileDialog = new OpenFileDialog();
         private SaveFileDialog saveFileDialog = new SaveFileDialog();
         private Bitmap newImage;
-        public ProgressBar progress;
+        public ProgressBar progress {
+            get { return this.progressBar; }
+        }
+        public int clusterSize {
+            get { return (int)numeric_clusterSize.Value; }
+        }
 
         // TODO: Create a stop button
 
@@ -26,10 +31,9 @@ namespace GlitchArt_Generator
 
             // Initialize Glitch class
             Glitch.main = this;
-            this.progress = progressBar;
 
             // Initialize fileDialog
-            fileDialog.Filter = "Image|*.bmp"; // Only allow bmp files
+            //fileDialog.Filter = "Image|*.bmp"; // Only allow bmp files
             fileDialog.Multiselect = false;
             fileDialog.Title = "Select an image file";
 
@@ -156,6 +160,11 @@ namespace GlitchArt_Generator
 
             // Enable browse button
             button_browse.Enabled = true;
+        }
+
+        private void SelectMethod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
