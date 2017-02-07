@@ -16,7 +16,7 @@ namespace GlitchArt_Generator
         // TODO: Optimize (clusters are hogging the application around +40 chance)
         // TODO: Let this run on a different thread
         public static Bitmap RandomizePixelColors(Bitmap oldImage, int randomizeChance, int clusterChance, int clusterSize, bool randomClusterSize = false, int randClusterSize_min = 0, int randClusterSize_max = 0)
-        {
+        {           
             Random rand = new Random();
             int currentStep = 0;
             int nextStep = (oldImage.Width * oldImage.Height) / 100;
@@ -75,7 +75,7 @@ namespace GlitchArt_Generator
             }
 
             return finalImage;
-        }        
+        }             
 
         //applys noise to al pixels of the provided bitmap
         public static Bitmap ApplyNoise(Bitmap inputBMP)

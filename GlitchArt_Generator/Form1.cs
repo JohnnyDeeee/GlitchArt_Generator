@@ -30,9 +30,8 @@ namespace GlitchArt_Generator
             // Initialize Glitch class
             Glitch.main = this;
             this.progress = progressBar;
-
-            //ShowMethods();
-            //methodSelector.Items.AddRange(Glitch.ShowMethods());
+            
+            //methodSelector.Items.AddRange(typeof(Glitch).GetMethods());
 
             // Initialize fileDialog
             fileDialog.Filter = "Image|*.bmp"; // Only allow bmp files
