@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -78,7 +79,7 @@ namespace GlitchArt_Generator
             }
 
             return finalImage;
-        }        
+        }             
 
         //applys noise to al pixels of the provided bitmap
         public static Bitmap ApplyNoise(Bitmap inputBMP)
@@ -202,6 +203,39 @@ namespace GlitchArt_Generator
             newImage.UnlockBits(bitmapData);
 
             return newImage;
+        }
+
+        public static Bitmap BitMosh(string filePath) {
+            Bitmap moshedImg;
+            Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            MemoryStream newMemoryStream = new MemoryStream();
+                                            
+            stream.Position = 0;
+            stream.CopyTo(newMemoryStream);
+            stream.Dispose();
+
+            for (int i = 0; i < main.randomChange; i++)
+            {
+                int pos = rand.Next(20, (int)(newMemoryStream.Length-20));                
+                newMemoryStream.Position = pos;
+                byte[] randBytes = new byte[1];
+                rand.NextBytes(randBytes);
+                newMemoryStream.WriteByte(randBytes[0]);                
+            }
+
+            newMemoryStream.Position = 0;
+            try
+            {
+                moshedImg = new Bitmap(newMemoryStream);
+            }
+            catch {
+                Console.WriteLine("Failed converting moshed stream into Bitmap");
+                return null;
+            }
+
+                
+            return moshedImg;
         }
     }
 }
