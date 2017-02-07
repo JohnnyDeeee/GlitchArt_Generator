@@ -28,14 +28,12 @@ namespace GlitchArt_Generator
             Glitch.main = this;
 
             // Initialize fileDialog
-            // TODO: Change filters in something right
-            //fileDialog.Filter = "Image|*.bmp"; // Only allow bmp files
+            fileDialog.Filter = "Bitmap|*.bmp|JPEG|*.jpg|JPEG|*.jpeg|PNG|*.png";
             fileDialog.Multiselect = false;
             fileDialog.Title = "Select an image file";
 
             // Initialize saveFileDialog
-            // TODO: Change filters in something right
-            saveFileDialog.Filter = "Image|*.bmp";
+            saveFileDialog.Filter = "Bitmap|*.bmp|JPEG|*.jpg|JPEG|*.jpeg|PNG|*.png";
             saveFileDialog.Title = "Choose a save location for the image";
 
             // Initialize pictureboxes
@@ -47,7 +45,8 @@ namespace GlitchArt_Generator
         private void button_browse_Click(object sender, EventArgs e)
         {
             // Show file dialog
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            DialogResult result = fileDialog.ShowDialog();
+            if (result == DialogResult.OK)
             {
                 // Set saveFileDialog initial directory to selected directory
                 saveFileDialog.InitialDirectory = Path.GetDirectoryName(fileDialog.FileName);
@@ -61,7 +60,7 @@ namespace GlitchArt_Generator
                 // Enable start button
                 button_start.Enabled = true;
             }
-            else
+            else if (result != DialogResult.OK && textbox_selectedFile.Text == "")
             {
                 // Disable start button
                 button_start.Enabled = false;
