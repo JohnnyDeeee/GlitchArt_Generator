@@ -31,9 +31,6 @@ namespace GlitchArt_Generator
             Glitch.main = this;
             this.progress = progressBar;
 
-            //ShowMethods();
-            //methodSelector.Items.AddRange(Glitch.ShowMethods());
-
             // Initialize fileDialog
             //fileDialog.Filter = "Image|*.bmp"; // Only allow bmp files
             fileDialog.Multiselect = false;
@@ -46,8 +43,6 @@ namespace GlitchArt_Generator
             // Initialize pictureboxes
             picture_original.SizeMode = PictureBoxSizeMode.StretchImage;
             picture_new.SizeMode = PictureBoxSizeMode.StretchImage;
-
-            picture_new.Image = Glitch.ApplyNoise((Bitmap)Image.FromFile("C:/Users/Tijmen/Pictures/pasfoto.bmp"));
         }
 
         // Browse button
