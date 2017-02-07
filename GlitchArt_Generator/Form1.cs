@@ -16,9 +16,15 @@ namespace GlitchArt_Generator
         private OpenFileDialog fileDialog = new OpenFileDialog();
         private SaveFileDialog saveFileDialog = new SaveFileDialog();
         private Bitmap newImage;
-        public ProgressBar progress;
+        public ProgressBar progress {
+            get { return this.progressBar; }
+        }
         public int clusterSize {
             get { return (int)numeric_clusterSize.Value; }
+        }
+        public int randomChange
+        {
+            get { return (int)numeric_randomPixelChance.Value; }
         }
 
         // TODO: Create a stop button
@@ -29,12 +35,11 @@ namespace GlitchArt_Generator
 
             // Initialize Glitch class
             Glitch.main = this;
-            this.progress = progressBar;
             
             //methodSelector.Items.AddRange(typeof(Glitch).GetMethods());
 
             // Initialize fileDialog
-            fileDialog.Filter = "Image|*.bmp"; // Only allow bmp files
+            //fileDialog.Filter = "Image|*.bmp"; // Only allow bmp files
             fileDialog.Multiselect = false;
             fileDialog.Title = "Select an image file";
 
@@ -45,8 +50,6 @@ namespace GlitchArt_Generator
             // Initialize pictureboxes
             picture_original.SizeMode = PictureBoxSizeMode.StretchImage;
             picture_new.SizeMode = PictureBoxSizeMode.StretchImage;
-
-            picture_new.Image = Glitch.ApplyNoise((Bitmap)Image.FromFile("C:/Users/Tijmen/Pictures/pasfoto.bmp"));
         }
 
         // Browse button
@@ -66,10 +69,14 @@ namespace GlitchArt_Generator
                 picture_original.Image = image;
 
                 // Randomize pixels
-                if(check_randomClustersize.Checked)
-                    newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
-                else
-                    newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
+                //          if(check_randomClustersize.Checked)
+                //              newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
+                //          else
+                //               newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
+
+                //newImage = ArtMaker.Tear((Bitmap)picture_original.Image);
+
+                newImage = Glitch.BitMosh(fileDialog.FileName);
 
                 // Show new image in picturebox
                 picture_new.Image = newImage;
@@ -122,12 +129,12 @@ namespace GlitchArt_Generator
             PreStart();
 
             // Randomize pixels
-            if(check_randomClustersize.Checked)
-                newImage = Glitch.RandomizePixelColors((Bitmap)picture_original.Image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
-            else
-                newImage = Glitch.RandomizePixelColors((Bitmap)picture_original.Image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
-            //newImage = TijmenGlitch.ApplyNoise((Bitmap)picture_original.Image);
+     //       if(check_randomClustersize.Checked)
+     //           newImage = Glitch.RandomizePixelColors((Bitmap)picture_original.Image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
+   //         else
+    //            newImage = Glitch.RandomizePixelColors((Bitmap)picture_original.Image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
 
+            newImage = ArtMaker.Tear((Bitmap)picture_original.Image);
             // Show new image in picturebox
             picture_new.Image = newImage;
 
@@ -156,7 +163,7 @@ namespace GlitchArt_Generator
             if (choseFile)
             {
                 button_restart.Enabled = true;
-                button_save.Enabled = true;
+                button_save.Enabled = true;               
             }
 
             // Enable browse button

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,13 +14,14 @@ namespace GlitchArt_Generator
     static class Glitch
     {        
         public static Form1 main;
+        private static Random rand = new Random();
 
         // Randomize pixel colors
         // TODO: Optimize (clusters are hogging the application around +40 chance)
+        // TODO: Use NewRandomize function to improve this one
         // TODO: Let this run on a different thread
         public static Bitmap RandomizePixelColors(Bitmap oldImage, int randomizeChance, int clusterChance, int clusterSize, bool randomClusterSize = false, int randClusterSize_min = 0, int randClusterSize_max = 0)
-        {           
-            Random rand = new Random();
+        {
             int currentStep = 0;
             int nextStep = (oldImage.Width * oldImage.Height) / 100;
             Bitmap finalImage = new Bitmap(oldImage.Width, oldImage.Height);
@@ -125,6 +129,107 @@ namespace GlitchArt_Generator
             }
 
             return newBMP;
+        }
+
+        // Shift bytes
+        public static Bitmap NewRandomColorPixels(Bitmap oldImage)
+        {
+            // Create a copy from the old image
+            Bitmap newImage = new Bitmap(oldImage);
+            
+            // Get the bytes from the bitmap
+            BitmapData bitmapData = newImage.LockBits(new Rectangle(0, 0, newImage.Width, newImage.Height), ImageLockMode.ReadWrite, newImage.PixelFormat);
+            IntPtr ptr = bitmapData.Scan0; // Get the adress of the first line
+            int amountBytes = Math.Abs(bitmapData.Stride) * newImage.Height;
+            byte[] bytes = new byte[amountBytes];
+
+            // Copy bytes to the new array
+            Marshal.Copy(ptr, bytes, 0, amountBytes);
+
+            // Loopt trough the bytes
+            for (int i = 0; i < bytes.Length; i+=3)
+            {
+                bytes[i] = unchecked((Byte)(bytes[i] << rand.Next(0, 6)));
+            }
+
+            // Copy new bytes back to the bitmap
+            Marshal.Copy(bytes, 0, ptr, amountBytes);
+
+            // Unlock bits
+            newImage.UnlockBits(bitmapData);
+
+            // Return new bitmap
+            return newImage;
+        }
+
+        // Drag out pixel color
+        public static Bitmap DragOutPixels(Bitmap oldImage)
+        {
+            // Create a copy from the old image
+            Bitmap newImage = new Bitmap(oldImage);
+
+            // Get the bytes from the bitmap
+            BitmapData bitmapData = newImage.LockBits(new Rectangle(0, 0, newImage.Width, newImage.Height), ImageLockMode.ReadWrite, newImage.PixelFormat);
+            IntPtr ptr = bitmapData.Scan0; // Get the adress of the first line
+            int amountBytes = Math.Abs(bitmapData.Stride) * newImage.Height;
+            byte[] bytes = new byte[amountBytes];
+
+            // Copy bytes to the new array
+            Marshal.Copy(ptr, bytes, 0, amountBytes);
+
+            // Loopt trough the bytes (pixels) and save them in a list with their coordinates
+            for (int i = 0; i < bytes.Length; i += 4)
+            {
+                //bytes[i] = 255; // Blue
+                //bytes[i+1] = 255; // Green
+                //bytes[i+2] = 255; // Red
+                //bytes[i + 3] = 128; // Alpha
+                Color pixelColor = Color.FromArgb(bytes[i+3], bytes[i+2], bytes[i+1], bytes[i]);
+
+                if (i + 7 <= bytes.Length && rand.Next(0, 101) < 60) // Probabillity of the dragout per pixel
+                {
+                    // Change the next pixel into this one
+                    bytes[i + 4] = bytes[i];
+                    bytes[i + 5] = bytes[i + 1];
+                    bytes[i + 6] = bytes[i + 2];
+                    bytes[i + 7] = bytes[i + 3];
+                }
+            }
+
+            // Copy new bytes back to the bitmap
+            Marshal.Copy(bytes, 0, ptr, amountBytes);
+
+            // Unlock bits
+            newImage.UnlockBits(bitmapData);
+
+            return newImage;
+        }
+
+        public static Bitmap BitMosh(string filePath) {
+            Bitmap moshedImg;
+            Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            MemoryStream newMemoryStream = new MemoryStream();
+                                
+            stream.Position = 0;
+            stream.CopyTo(newMemoryStream);
+            stream.Dispose();
+
+            for (int i = 0; i < newMemoryStream.Length; i++)
+            {
+                if (rand.Next(1, 2000) == 1)
+                {
+                    newMemoryStream.Position = i;
+                    byte[] randBytes = new byte[1];
+                    rand.NextBytes(randBytes);
+                    newMemoryStream.WriteByte(randBytes[0]);
+                }
+            }
+
+            newMemoryStream.Position = 0;
+            moshedImg = new Bitmap(newMemoryStream);
+                
+            return moshedImg;
         }
     }
 }
