@@ -29,7 +29,7 @@ namespace GlitchArt_Generator
             this.progress = progressBar;
 
             // Initialize fileDialog
-            fileDialog.Filter = "Image|*.bmp"; // Only allow bmp files
+            //fileDialog.Filter = "Image|*.bmp"; // Only allow bmp files
             fileDialog.Multiselect = false;
             fileDialog.Title = "Select an image file";
 
@@ -59,10 +59,11 @@ namespace GlitchArt_Generator
                 picture_original.Image = image;
 
                 // Randomize pixels
-                if(check_randomClustersize.Checked)
-                    newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
-                else
-                    newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
+                //if(check_randomClustersize.Checked)
+                //    newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
+                //else
+                //    newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
+                newImage = Glitch.DragOutPixels((Bitmap)image);
 
                 // Show new image in picturebox
                 picture_new.Image = newImage;

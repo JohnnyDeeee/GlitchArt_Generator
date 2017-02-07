@@ -35,6 +35,11 @@
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.button_save = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numeric_randomPixelChance = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numeric_clusterChance = new System.Windows.Forms.NumericUpDown();
             this.label_randClustersize_max = new System.Windows.Forms.Label();
             this.numeric_randClustersize_max = new System.Windows.Forms.NumericUpDown();
             this.label_randClustersize_min = new System.Windows.Forms.Label();
@@ -43,19 +48,14 @@
             this.label_clustersize = new System.Windows.Forms.Label();
             this.numeric_clusterSize = new System.Windows.Forms.NumericUpDown();
             this.button_restart = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numeric_clusterChance = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numeric_randomPixelChance = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picture_original)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture_new)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numeric_randomPixelChance)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numeric_clusterChance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_randClustersize_max)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_randClustersize_min)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_clusterSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numeric_clusterChance)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numeric_randomPixelChance)).BeginInit();
             this.SuspendLayout();
             // 
             // button_browse
@@ -73,32 +73,32 @@
             this.picture_original.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picture_original.Location = new System.Drawing.Point(25, 213);
             this.picture_original.Name = "picture_original";
-            this.picture_original.Size = new System.Drawing.Size(236, 310);
+            this.picture_original.Size = new System.Drawing.Size(439, 455);
             this.picture_original.TabIndex = 1;
             this.picture_original.TabStop = false;
             // 
             // picture_new
             // 
             this.picture_new.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picture_new.Location = new System.Drawing.Point(381, 213);
+            this.picture_new.Location = new System.Drawing.Point(633, 213);
             this.picture_new.Name = "picture_new";
-            this.picture_new.Size = new System.Drawing.Size(236, 310);
+            this.picture_new.Size = new System.Drawing.Size(439, 455);
             this.picture_new.TabIndex = 2;
             this.picture_new.TabStop = false;
             // 
             // progressBar
             // 
             this.progressBar.Enabled = false;
-            this.progressBar.Location = new System.Drawing.Point(25, 542);
+            this.progressBar.Location = new System.Drawing.Point(25, 674);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(592, 23);
+            this.progressBar.Size = new System.Drawing.Size(1047, 23);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar.TabIndex = 3;
             // 
             // button_save
             // 
             this.button_save.Enabled = false;
-            this.button_save.Location = new System.Drawing.Point(542, 184);
+            this.button_save.Location = new System.Drawing.Point(633, 184);
             this.button_save.Name = "button_save";
             this.button_save.Size = new System.Drawing.Size(75, 23);
             this.button_save.TabIndex = 4;
@@ -122,10 +122,53 @@
             this.groupBox1.Controls.Add(this.numeric_clusterSize);
             this.groupBox1.Location = new System.Drawing.Point(25, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(592, 166);
+            this.groupBox1.Size = new System.Drawing.Size(1047, 166);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Red;
+            this.label3.Location = new System.Drawing.Point(7, 52);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(261, 104);
+            this.label3.TabIndex = 11;
+            this.label3.Text = resources.GetString("label3.Text");
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Random pixel chance: ";
+            // 
+            // numeric_randomPixelChance
+            // 
+            this.numeric_randomPixelChance.Location = new System.Drawing.Point(128, 20);
+            this.numeric_randomPixelChance.Name = "numeric_randomPixelChance";
+            this.numeric_randomPixelChance.Size = new System.Drawing.Size(62, 20);
+            this.numeric_randomPixelChance.TabIndex = 9;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(284, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Cluster chance:";
+            // 
+            // numeric_clusterChance
+            // 
+            this.numeric_clusterChance.Location = new System.Drawing.Point(371, 20);
+            this.numeric_clusterChance.Name = "numeric_clusterChance";
+            this.numeric_clusterChance.Size = new System.Drawing.Size(62, 20);
+            this.numeric_clusterChance.TabIndex = 7;
             // 
             // label_randClustersize_max
             // 
@@ -208,7 +251,7 @@
             // button_restart
             // 
             this.button_restart.Enabled = false;
-            this.button_restart.Location = new System.Drawing.Point(186, 184);
+            this.button_restart.Location = new System.Drawing.Point(106, 184);
             this.button_restart.Name = "button_restart";
             this.button_restart.Size = new System.Drawing.Size(75, 23);
             this.button_restart.TabIndex = 7;
@@ -216,54 +259,11 @@
             this.button_restart.UseVisualStyleBackColor = true;
             this.button_restart.Click += new System.EventHandler(this.button_restart_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(284, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Cluster chance:";
-            // 
-            // numeric_clusterChance
-            // 
-            this.numeric_clusterChance.Location = new System.Drawing.Point(371, 20);
-            this.numeric_clusterChance.Name = "numeric_clusterChance";
-            this.numeric_clusterChance.Size = new System.Drawing.Size(62, 20);
-            this.numeric_clusterChance.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 13);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Random pixel chance: ";
-            // 
-            // numeric_randomPixelChance
-            // 
-            this.numeric_randomPixelChance.Location = new System.Drawing.Point(128, 20);
-            this.numeric_randomPixelChance.Name = "numeric_randomPixelChance";
-            this.numeric_randomPixelChance.Size = new System.Drawing.Size(62, 20);
-            this.numeric_randomPixelChance.TabIndex = 9;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(7, 52);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(261, 104);
-            this.label3.TabIndex = 11;
-            this.label3.Text = resources.GetString("label3.Text");
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(646, 583);
+            this.ClientSize = new System.Drawing.Size(1084, 709);
             this.Controls.Add(this.button_restart);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_save);
@@ -279,11 +279,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.picture_new)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numeric_randomPixelChance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numeric_clusterChance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_randClustersize_max)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_randClustersize_min)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_clusterSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numeric_clusterChance)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numeric_randomPixelChance)).EndInit();
             this.ResumeLayout(false);
 
         }
