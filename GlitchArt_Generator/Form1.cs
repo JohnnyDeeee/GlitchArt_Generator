@@ -107,7 +107,7 @@ namespace GlitchArt_Generator
             PreStart();
 
             // Randomize pixels
-            newImage = RandomizePixelColors((Bitmap)picture_original.Image);
+            newImage = TijmenGlitch.ApplyNoise((Bitmap)picture_original.Image);
 
             // Show new image in picturebox
             picture_new.Image = newImage;
