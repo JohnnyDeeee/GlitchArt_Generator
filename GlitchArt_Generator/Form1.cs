@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,19 +14,9 @@ namespace GlitchArt_Generator
 {
     public partial class Form1 : Form
     {
-        private OpenFileDialog fileDialog = new OpenFileDialog();
+        public OpenFileDialog fileDialog = new OpenFileDialog();
         private SaveFileDialog saveFileDialog = new SaveFileDialog();
         private Bitmap newImage;
-        public ProgressBar progress {
-            get { return this.progressBar; }
-        }
-        public int clusterSize {
-            get { return (int)numeric_clusterSize.Value; }
-        }
-        public int randomChange
-        {
-            get { return (int)numeric_randomPixelChance.Value; }
-        }
 
         // TODO: Create a stop button
 
@@ -36,8 +27,6 @@ namespace GlitchArt_Generator
             // Initialize Glitch class
             Glitch.main = this;
 
-            //methodSelector.Items.AddRange(typeof(Glitch).GetMethods());
-
             // Initialize fileDialog
             fileDialog.Filter = "All Graphics Types|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff"
             +"BMP|*.bmp|GIF|*.gif|JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff|";       
@@ -45,7 +34,7 @@ namespace GlitchArt_Generator
             fileDialog.Title = "Select an image file";
 
             // Initialize saveFileDialog
-            saveFileDialog.Filter = "Image|*.bmp";
+            saveFileDialog.Filter = "Bitmap|*.bmp|JPEG|*.jpg|JPEG|*.jpeg|PNG|*.png";
             saveFileDialog.Title = "Choose a save location for the image";
 
             // Initialize pictureboxes
@@ -53,46 +42,31 @@ namespace GlitchArt_Generator
             picture_new.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
-        public void Mosh() {
-            //mosh that b!tch
-            // Randomize pixels
-            //          if(check_randomClustersize.Checked)
-            //              newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value, check_randomClustersize.Checked, (int)numeric_randClustersize_min.Value, (int)numeric_randClustersize_max.Value);
-            //          else
-            //               newImage = Glitch.RandomizePixelColors((Bitmap)image, (int)numeric_randomPixelChance.Value, (int)numeric_clusterChance.Value, (int)numeric_clusterSize.Value);
-
-            //newImage = ArtMaker.Tear((Bitmap)picture_original.Image);
-
-            newImage = Glitch.BitMosh(fileDialog.FileName);
-
-            // Show new image in picturebox
-            picture_new.Image = newImage;
-        }
-
         // Browse button
         private void button_browse_Click(object sender, EventArgs e)
         {
-            PreStart();
             // Show file dialog
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            DialogResult result = fileDialog.ShowDialog();
+            if (result == DialogResult.OK)
             {
                 // Set saveFileDialog initial directory to selected directory
                 saveFileDialog.InitialDirectory = Path.GetDirectoryName(fileDialog.FileName);
                 saveFileDialog.FileName = Path.GetFileName(fileDialog.FileName);
+                textbox_selectedFile.Text = Path.GetFileName(fileDialog.FileName);
 
                 // Show selected image in picturebox
                 Image image = Image.FromFile(fileDialog.FileName);
                 picture_original.Image = image;
-               
-                //picture_new.Image = newImage;
-                Mosh();
 
-                PostStart();
+                // Enable start button
+                button_start.Enabled = true;
             }
-
-            PostStart(false);
+            else if (result != DialogResult.OK && textbox_selectedFile.Text == "")
+            {
+                // Disable start button
+                button_start.Enabled = false;
+            }
         }
-
 
         // Save button
         private void button_save_Click(object sender, EventArgs e)
@@ -107,33 +81,29 @@ namespace GlitchArt_Generator
             CheckBox check = (CheckBox)sender;
 
             // Enable/Disable necessary controls
-            label_randClustersize_max.Enabled = check.Checked;
-            label_randClustersize_min.Enabled = check.Checked;
-            numeric_randClustersize_max.Enabled = check.Checked;
-            numeric_randClustersize_min.Enabled = check.Checked;
+            RPC_label_randClustersize_max.Enabled = check.Checked;
+            RPC_label_randClustersize_min.Enabled = check.Checked;
+            RPC_numeric_randClustersize_max.Enabled = check.Checked;
+            RPC_numeric_randClustersize_min.Enabled = check.Checked;
 
             if (check.Checked)
             {
-                label_clustersize.Enabled = false;
-                numeric_clusterSize.Enabled = false;
+                RPC_label_clustersize.Enabled = false;
+                RPC_numeric_clusterSize.Enabled = false;
             }
             else
             {
-                label_clustersize.Enabled = true;
-                numeric_clusterSize.Enabled = true;
+                RPC_label_clustersize.Enabled = true;
+                RPC_numeric_clusterSize.Enabled = true;
             }
         }
 
-        // Restart button
-        private void button_restart_Click(object sender, EventArgs e)
+        // Start button
+        private void button_start_Click(object sender, EventArgs e)
         {
-            Button button = (Button)sender;
-
-            // Disable button
-            button.Enabled = false;
             PreStart();
 
-            Mosh();
+            StartSelectedGlitchMethod();
 
             PostStart();
         }
@@ -144,8 +114,8 @@ namespace GlitchArt_Generator
             // Disable browse button
             button_browse.Enabled = false;
 
-            // Disable restart button
-            button_restart.Enabled = false;
+            // Disable start button
+            button_start.Enabled = false;
 
             // Reset progressbar
             progressBar.Value = 0;
@@ -155,21 +125,22 @@ namespace GlitchArt_Generator
         }
 
         // Setup interface stuff after starting randomizing proces
-        private void PostStart(bool choseFile = true)
+        private void PostStart()
         {
-            if (choseFile)
-            {
-                button_restart.Enabled = true;
-                button_save.Enabled = true;               
-            }
+            button_start.Enabled = true;
+            button_save.Enabled = true;
 
             // Enable browse button
             button_browse.Enabled = true;
         }
 
-        private void SelectMethod_SelectedIndexChanged(object sender, EventArgs e)
+        // Call function that is part of selected settings tab
+        private void StartSelectedGlitchMethod()
         {
-
+            // Call function that is supplied by the 'tag' attribute of the selected tab
+            string method = tabcontrol_glitchMethods.SelectedTab.Tag.ToString();
+            MethodInfo actualMethod = (typeof(Glitch)).GetMethod(method);
+            actualMethod.Invoke(this, null);
         }
     }
 }
