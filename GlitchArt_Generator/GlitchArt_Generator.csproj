@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArtMaker.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

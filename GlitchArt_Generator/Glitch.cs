@@ -249,5 +249,51 @@ namespace GlitchArt_Generator
                 Console.WriteLine("Failed converting moshed stream into Bitmap");
             }
         }
+            
+            //author: Freddy
+            public static void Tear()
+            {
+
+                Bitmap oldImage = (Bitmap)main.picture_original.Image;
+                Bitmap finalImage = new Bitmap(oldImage);
+                Random rand = new Random();
+                //create the startplace for the tear
+                int tearPlace = rand.Next(1, 199);
+                // loop trough the bitmap
+                for (int x = 0; x < oldImage.Height; x++)
+                {
+                    for (int y = 0; y < oldImage.Width; y++)
+                    {
+                        if (x == tearPlace)
+                        {
+                            //create the width of the tear and the color of the pixels
+                            int tearWidth = rand.Next(1, 10);
+                            Color randomColor = Color.FromArgb(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+                                    //loop through the width of the tear and set the pixel color, check to make sure the pixel doesn't exist outside the image
+                                    for (int i = 0; i < tearWidth; i++)
+                                    {
+                                    if (x + i > finalImage.Width)
+                                    {
+                                        finalImage.SetPixel(finalImage.Width, y, randomColor);
+                                    }
+                                    else
+                                    {
+                                        finalImage.SetPixel(x + i, y, randomColor);
+                                    }
+
+                                    if (x - i < 0)
+                                    {
+                                        finalImage.SetPixel(0, y, randomColor);
+                                    }
+                                    else
+                                    {
+                                        finalImage.SetPixel(x - i, y, randomColor);
+                                    }
+                            }
+                        }
+                    }
+                }
+                 main.picture_new.Image = finalImage;
+            }
+        }
     }
-}
