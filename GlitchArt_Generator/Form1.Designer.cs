@@ -74,6 +74,7 @@
             this.textbox_selectedFile = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.button_start = new System.Windows.Forms.Button();
+            this.tab_Shrink = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.picture_original)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture_new)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -308,6 +309,7 @@
             this.tabcontrol_glitchMethods.Controls.Add(this.tab_applyNoise);
             this.tabcontrol_glitchMethods.Controls.Add(this.tab_bitMosh);
             this.tabcontrol_glitchMethods.Controls.Add(this.tab_tearing);
+            this.tabcontrol_glitchMethods.Controls.Add(this.tab_Shrink);
             this.tabcontrol_glitchMethods.Location = new System.Drawing.Point(25, 12);
             this.tabcontrol_glitchMethods.Name = "tabcontrol_glitchMethods";
             this.tabcontrol_glitchMethods.SelectedIndex = 0;
@@ -605,6 +607,17 @@
             this.button_start.UseVisualStyleBackColor = true;
             this.button_start.Click += new System.EventHandler(this.button_start_Click);
             // 
+            // tab_Shrink
+            // 
+            this.tab_Shrink.Location = new System.Drawing.Point(4, 22);
+            this.tab_Shrink.Name = "tab_Shrink";
+            this.tab_Shrink.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_Shrink.Size = new System.Drawing.Size(1039, 140);
+            this.tab_Shrink.TabIndex = 6;
+            this.tab_Shrink.Tag = "Shrink";
+            this.tab_Shrink.Text = "Shrink";
+            this.tab_Shrink.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -704,6 +717,7 @@
         public System.Windows.Forms.NumericUpDown AN_numeric_cutOff;
         private System.Windows.Forms.Label BM_label_randomChange;
         public System.Windows.Forms.NumericUpDown BM_numeric_randomChange;
+        private System.Windows.Forms.TabPage tab_Shrink;
     }
 }
 

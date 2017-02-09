@@ -266,9 +266,9 @@ namespace GlitchArt_Generator
                 //create the startplace for the tear
                 int tearPlace = rand.Next(1, 199);
                 // loop trough the bitmap
-                for (int x = 0; x < oldImage.Height; x++)
+                for (int x = 0; x < oldImage.Width; x++)
                 {
-                    for (int y = 0; y < oldImage.Width; y++)
+                    for (int y = 0; y < oldImage.Height; y++)
                     {
                         if (x == tearPlace)
                         {
@@ -301,5 +301,27 @@ namespace GlitchArt_Generator
                 }
                  main.picture_new.Image = finalImage;
             }
-        }
-    }
+
+        public static void Shrink()
+        {
+            Bitmap oldImage = (Bitmap)main.picture_original.Image;
+            Bitmap finalImage = new Bitmap(oldImage);
+            Random rand = new Random();
+            Color White = Color.FromArgb(255,255,255);
+
+            for (int x = 0; x < oldImage.Width; x++)
+            {
+                for (int y = 0; y < oldImage.Height; y++)
+                {
+                    Color a = oldImage.GetPixel(x,y);
+                    finalImage.SetPixel(x, y, White);
+                    finalImage.SetPixel(x/2 , y/2, a);
+                }
+            }
+
+            main.picture_new.Image = finalImage;
+            }
+
+		}
+     }
+    
