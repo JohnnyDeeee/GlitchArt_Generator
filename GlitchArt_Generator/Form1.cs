@@ -16,7 +16,7 @@ namespace GlitchArt_Generator
     {
         public OpenFileDialog fileDialog = new OpenFileDialog();
         private SaveFileDialog saveFileDialog = new SaveFileDialog();
-        private Bitmap newImage;
+       // private Bitmap newImage;
 
         // TODO: Create a stop button
 
@@ -26,10 +26,9 @@ namespace GlitchArt_Generator
 
             // Initialize Glitch class
             Glitch.main = this;
-
             // Initialize fileDialog
-            fileDialog.Filter = "All Graphics Types|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff"
-            +"BMP|*.bmp|GIF|*.gif|JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff|";       
+
+            fileDialog.Filter = "All Graphics Types|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff;";       
             fileDialog.Multiselect = false;
             fileDialog.Title = "Select an image file";
 
@@ -67,12 +66,12 @@ namespace GlitchArt_Generator
                 button_start.Enabled = false;
             }
         }
-
+      
         // Save button
         private void button_save_Click(object sender, EventArgs e)
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                newImage.Save(saveFileDialog.FileName);
+                picture_new.Image.Save(saveFileDialog.FileName);
         }
 
         // Random cluster size checkbox
@@ -141,6 +140,6 @@ namespace GlitchArt_Generator
             string method = tabcontrol_glitchMethods.SelectedTab.Tag.ToString();
             MethodInfo actualMethod = (typeof(Glitch)).GetMethod(method);
             actualMethod.Invoke(this, null);
-        }
+        }        
     }
 }

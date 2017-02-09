@@ -58,22 +58,22 @@
             this.DOP_label6 = new System.Windows.Forms.Label();
             this.tab_applyNoise = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.AN_label_randomChange = new System.Windows.Forms.Label();
+            this.AN_numeric_cutOff = new System.Windows.Forms.NumericUpDown();
             this.AN_label_clusterSize = new System.Windows.Forms.Label();
             this.AN_numeric_clusterSize = new System.Windows.Forms.NumericUpDown();
             this.AN_label5 = new System.Windows.Forms.Label();
             this.tab_bitMosh = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.BM_label_randomChange = new System.Windows.Forms.Label();
             this.BM_label7 = new System.Windows.Forms.Label();
+            this.BM_numeric_randomChange = new System.Windows.Forms.NumericUpDown();
             this.tab_tearing = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.T_label8 = new System.Windows.Forms.Label();
             this.textbox_selectedFile = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.button_start = new System.Windows.Forms.Button();
-            this.AN_label_randomChange = new System.Windows.Forms.Label();
-            this.AN_numeric_randomChange = new System.Windows.Forms.NumericUpDown();
-            this.BM_label_randomChange = new System.Windows.Forms.Label();
-            this.BM_numeric_randomChange = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.picture_original)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture_new)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -90,13 +90,13 @@
             this.groupBox3.SuspendLayout();
             this.tab_applyNoise.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AN_numeric_cutOff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AN_numeric_clusterSize)).BeginInit();
             this.tab_bitMosh.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BM_numeric_randomChange)).BeginInit();
             this.tab_tearing.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AN_numeric_randomChange)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BM_numeric_randomChange)).BeginInit();
             this.SuspendLayout();
             // 
             // button_browse
@@ -403,7 +403,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.AN_label_randomChange);
-            this.groupBox4.Controls.Add(this.AN_numeric_randomChange);
+            this.groupBox4.Controls.Add(this.AN_numeric_cutOff);
             this.groupBox4.Controls.Add(this.AN_label_clusterSize);
             this.groupBox4.Controls.Add(this.AN_numeric_clusterSize);
             this.groupBox4.Controls.Add(this.AN_label5);
@@ -414,26 +414,62 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Settings";
             // 
+            // AN_label_randomChange
+            // 
+            this.AN_label_randomChange.AutoSize = true;
+            this.AN_label_randomChange.Location = new System.Drawing.Point(6, 59);
+            this.AN_label_randomChange.Name = "AN_label_randomChange";
+            this.AN_label_randomChange.Size = new System.Drawing.Size(64, 13);
+            this.AN_label_randomChange.TabIndex = 16;
+            this.AN_label_randomChange.Text = "Cut of point ";
+            // 
+            // AN_numeric_cutOff
+            // 
+            this.AN_numeric_cutOff.Location = new System.Drawing.Point(104, 57);
+            this.AN_numeric_cutOff.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.AN_numeric_cutOff.Name = "AN_numeric_cutOff";
+            this.AN_numeric_cutOff.Size = new System.Drawing.Size(62, 20);
+            this.AN_numeric_cutOff.TabIndex = 15;
+            this.AN_numeric_cutOff.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
             // AN_label_clusterSize
             // 
             this.AN_label_clusterSize.AutoSize = true;
             this.AN_label_clusterSize.Location = new System.Drawing.Point(6, 29);
             this.AN_label_clusterSize.Name = "AN_label_clusterSize";
-            this.AN_label_clusterSize.Size = new System.Drawing.Size(63, 13);
+            this.AN_label_clusterSize.Size = new System.Drawing.Size(58, 13);
             this.AN_label_clusterSize.TabIndex = 14;
-            this.AN_label_clusterSize.Text = "Cluster size:";
+            this.AN_label_clusterSize.Text = "Block size:";
             // 
             // AN_numeric_clusterSize
             // 
             this.AN_numeric_clusterSize.Location = new System.Drawing.Point(104, 27);
             this.AN_numeric_clusterSize.Maximum = new decimal(new int[] {
-            10000,
+            1000,
+            0,
+            0,
+            0});
+            this.AN_numeric_clusterSize.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
             this.AN_numeric_clusterSize.Name = "AN_numeric_clusterSize";
             this.AN_numeric_clusterSize.Size = new System.Drawing.Size(62, 20);
             this.AN_numeric_clusterSize.TabIndex = 13;
+            this.AN_numeric_clusterSize.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // AN_label5
             // 
@@ -468,6 +504,15 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Settings";
             // 
+            // BM_label_randomChange
+            // 
+            this.BM_label_randomChange.AutoSize = true;
+            this.BM_label_randomChange.Location = new System.Drawing.Point(6, 33);
+            this.BM_label_randomChange.Name = "BM_label_randomChange";
+            this.BM_label_randomChange.Size = new System.Drawing.Size(79, 13);
+            this.BM_label_randomChange.TabIndex = 18;
+            this.BM_label_randomChange.Text = "Bytes to mosh: ";
+            // 
             // BM_label7
             // 
             this.BM_label7.AutoSize = true;
@@ -477,6 +522,29 @@
             this.BM_label7.Size = new System.Drawing.Size(75, 13);
             this.BM_label7.TabIndex = 11;
             this.BM_label7.Text = "Author: Tijmen";
+            // 
+            // BM_numeric_randomChange
+            // 
+            this.BM_numeric_randomChange.Location = new System.Drawing.Point(104, 31);
+            this.BM_numeric_randomChange.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.BM_numeric_randomChange.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.BM_numeric_randomChange.Name = "BM_numeric_randomChange";
+            this.BM_numeric_randomChange.Size = new System.Drawing.Size(62, 20);
+            this.BM_numeric_randomChange.TabIndex = 17;
+            this.BM_numeric_randomChange.ThousandsSeparator = true;
+            this.BM_numeric_randomChange.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             // 
             // tab_tearing
             // 
@@ -537,48 +605,6 @@
             this.button_start.UseVisualStyleBackColor = true;
             this.button_start.Click += new System.EventHandler(this.button_start_Click);
             // 
-            // AN_label_randomChange
-            // 
-            this.AN_label_randomChange.AutoSize = true;
-            this.AN_label_randomChange.Location = new System.Drawing.Point(6, 59);
-            this.AN_label_randomChange.Name = "AN_label_randomChange";
-            this.AN_label_randomChange.Size = new System.Drawing.Size(92, 13);
-            this.AN_label_randomChange.TabIndex = 16;
-            this.AN_label_randomChange.Text = "Random change: ";
-            // 
-            // AN_numeric_randomChange
-            // 
-            this.AN_numeric_randomChange.Location = new System.Drawing.Point(104, 57);
-            this.AN_numeric_randomChange.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.AN_numeric_randomChange.Name = "AN_numeric_randomChange";
-            this.AN_numeric_randomChange.Size = new System.Drawing.Size(62, 20);
-            this.AN_numeric_randomChange.TabIndex = 15;
-            // 
-            // BM_label_randomChange
-            // 
-            this.BM_label_randomChange.AutoSize = true;
-            this.BM_label_randomChange.Location = new System.Drawing.Point(6, 33);
-            this.BM_label_randomChange.Name = "BM_label_randomChange";
-            this.BM_label_randomChange.Size = new System.Drawing.Size(92, 13);
-            this.BM_label_randomChange.TabIndex = 18;
-            this.BM_label_randomChange.Text = "Random change: ";
-            // 
-            // BM_numeric_randomChange
-            // 
-            this.BM_numeric_randomChange.Location = new System.Drawing.Point(104, 31);
-            this.BM_numeric_randomChange.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.BM_numeric_randomChange.Name = "BM_numeric_randomChange";
-            this.BM_numeric_randomChange.Size = new System.Drawing.Size(62, 20);
-            this.BM_numeric_randomChange.TabIndex = 17;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -617,15 +643,15 @@
             this.tab_applyNoise.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AN_numeric_cutOff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AN_numeric_clusterSize)).EndInit();
             this.tab_bitMosh.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BM_numeric_randomChange)).EndInit();
             this.tab_tearing.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AN_numeric_randomChange)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BM_numeric_randomChange)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -675,7 +701,7 @@
         private System.Windows.Forms.Label AN_label_clusterSize;
         public System.Windows.Forms.NumericUpDown AN_numeric_clusterSize;
         private System.Windows.Forms.Label AN_label_randomChange;
-        public System.Windows.Forms.NumericUpDown AN_numeric_randomChange;
+        public System.Windows.Forms.NumericUpDown AN_numeric_cutOff;
         private System.Windows.Forms.Label BM_label_randomChange;
         public System.Windows.Forms.NumericUpDown BM_numeric_randomChange;
     }
