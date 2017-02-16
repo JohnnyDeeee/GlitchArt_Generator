@@ -33,7 +33,7 @@ namespace GlitchArt_Generator
             int currentStep = 0;
             int nextStep = (oldImage.Width * oldImage.Height) / 100;
             Bitmap finalImage = new Bitmap(oldImage.Width, oldImage.Height);
-            List<KeyValuePair<Color, List<KeyValuePair<int, int>>>> clusters = new List<KeyValuePair<Color, List<KeyValuePair<int, int>>>>();
+            List<Cluster> clusters = new List<Cluster>();
             for (int x = 0; x < oldImage.Width; x++)
             {
                 for (int y = 0; y < oldImage.Height; y++)
@@ -42,8 +42,7 @@ namespace GlitchArt_Generator
                     Color newColor = pixelColor;
 
                     // Create a random colored pixel
-                    if (rand.Next(0, 101) < randomizeChance &&
-                        clusters.Find(_x => _x.Value.Contains(new KeyValuePair<int, int>(x, y))).Equals(new KeyValuePair<Color, List<KeyValuePair<int, int>>>()))
+                    if (rand.Next(0, 101) < randomizeChance && clusters.Find(_x => _x.Position.x == x && _x.Position.y == y) == null) //clusters.Find(_x => _x.Value.Contains(new KeyValuePair<int, int>(x, y))).Equals(new KeyValuePair<Color, List<KeyValuePair<int, int>>>())
                     {
                         newColor = Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256));
 
@@ -58,20 +57,17 @@ namespace GlitchArt_Generator
                                 clusterSize = rand.Next(randClusterSize_min, randClusterSize_max);
 
                             // 'Mark' pixels as cluster pixels
-                            List<KeyValuePair<int, int>> clusterPixels = new List<KeyValuePair<int, int>>();
                             for (int _x = x; _x < (x + clusterSize); _x++)
                             {
                                 for (int _y = y; _y < (y + clusterSize); _y++)
                                 {
-                                    clusterPixels.Add(new KeyValuePair<int, int>(_x, _y));
+                                    clusters.Add(new Cluster(clusterColor, new Vector2(_x, _y)));
                                 }
                             }
-
-                            clusters.Add(new KeyValuePair<Color, List<KeyValuePair<int, int>>>(clusterColor, clusterPixels));
                         }
                     }
-                    else if (!clusters.Find(_x => _x.Value.Contains(new KeyValuePair<int, int>(x, y))).Equals(new KeyValuePair<Color, List<KeyValuePair<int, int>>>()))
-                        newColor = clusters.Find(_x => _x.Value.Contains(new KeyValuePair<int, int>(x, y))).Key;
+                    else if (clusters.Find(_x => _x.Position.x == x && _x.Position.y == y) != null)
+                        newColor = clusters.Find(c => c.Position.x == x && c.Position.y == y).Color;
                     else
                         newColor = oldImage.GetPixel(x, y);
 
@@ -132,7 +128,7 @@ namespace GlitchArt_Generator
             IntPtr ptr = bitmapData.Scan0; // Get the adress of the first line
             int amountBytes = Math.Abs(bitmapData.Stride) * newImage.Height;
             byte[] bytes = new byte[amountBytes];
-
+            
             // Copy bytes to the new array
             Marshal.Copy(ptr, bytes, 0, amountBytes);
 
